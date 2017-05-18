@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Digital Clock</title>
+</head>
+<body>
+  <div class="container">
+    <div id="watch">
+      <div id="display">
+      </div> 
+    </div>
+  </div>
+  
+  <style type="text/css">
+    body {
+      background: #000;
+    }
+
+    #watch {
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+      background: #333;
+      display: flex;
+      height: 300px;
+    }
+
+    #watch:hover {
+      cursor: pointer;
+      color: #FFF;
+    }
+
+    #display {
+      justify-content: center;
+      background: #008b8b;
+      align-items: center;
+      margin-right: auto;
+      margin-left: auto;
+      display: flex;
+      height: 95%;
+      width: 98%;
+    }
+
+    #hours {
+      font-family: 'Bahiana', cursive;
+      font-size: 200px;
+    }
+
+    #seconds {
+      font-size: 175px;
+    }
+    #meridiem {
+      font-size: 70px;
+    }
+    
+  </style> 
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    //cache DOM
+    let $display = $('#display')
+
+    const watch = () => {
+      let timer = setInterval(() => {
+        let date = new Date()
+        let hour = date.getHours()
+        let minute = date.getMinutes()
+        let second = date.getSeconds()
+        
+        let meridiem = hour <= 12 ? 'am' : 'pm'
+        
+        if (hour && hour > 12) {
+          switch(hour) {
+            case 13:
+              hour = 1
+              break
+            case 14: 
+              hour = 2
+              break
+            case 15: 
+              hour = 3  
+              break
+            case 16:
+              hour = 4
+              break
+           case 17:
+              hour = 5
+              break
+            case 18: 
+              hour = 6
+              break
+            case 19: 
+              hour = 7 
+              break
+            case 20:
+              hour = 8
+              break   
+            case 21:
+              hour = 9
+              break
+            case 22: 
+              hour = 10
+              break
+            case 23: 
+              hour = 11
+              break
+            case 24:
+              hour = 12
+              break
+          }
+        }
+            
+      if (hour && hour < 10) {
+        hour = '0' + hour
+      }
+      if (minute && minute < 10) {
+        minute = '0' + minute
+      }
+      if (second && second < 10) {
+        second = '0' + second
+      } else if (!second) {
+        second = '00'
+      }
+         
+     let displayTime = 
+     `<p id='hours'>  
+        ${hour} : ${minute}:
+        <span id='seconds'> ${second} </span> 
+        <span id='meridiem'> ${meridiem} </span> 
+      </p>`
+     $display.html(displayTime)
+    }, 1000)
+      
+      timer()
+     //clearInterval(timer) /** <-- Stop Watch*/
+    }
+
+    /** Start Watch() **/
+    watch()
+  </script>
+</body>
+</html>
